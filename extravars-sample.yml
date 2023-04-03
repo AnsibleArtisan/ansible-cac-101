@@ -1,0 +1,8 @@
+# For basic playbooks
+extra_aap_instance_url: 
+extra_aap_instance_username: 
+extra_aap_instance_password: 
+
+# Add for cac-05.yml
+extra_github_token:
+extra_github_repository:
