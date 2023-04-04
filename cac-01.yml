@@ -8,13 +8,14 @@
     controller_username: "{{ extra_aap_instance_username }}"
     controller_password: "{{ extra_aap_instance_password }}"
 
-    # Automation Controller objects start below
-    controller_user_accounts:
-      - user: newuser
-        password: sosecure
-        email: hugo@example.com
-        is_superuser: true
   tasks:
     - name: Configure users through the user role in controller_configuration
       ansible.builtin.include_role:
         name: redhat_cop.controller_configuration.users
+      vars:
+        # Automation Controller object starts below
+        controller_user_accounts:
+          - user: newuser
+            password: sosecure
+            email: hugo@example.com
+            is_superuser: true
