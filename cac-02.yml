@@ -1,0 +1,37 @@
+---
+- name: First playbook for Configuration as Code
+  hosts: localhost
+  connection: local
+  vars:
+    controller_validate_certs: false
+    controller_hostname: "{{ extra_aap_instance_url }}"
+    controller_username: "{{ extra_aap_instance_username }}"
+    controller_password: "{{ extra_aap_instance_password }}"
+
+    # Automation Controller user object starts below
+    controller_user_accounts:
+      - user: demouser
+        password: sosecure
+        email: hugo@example.com
+        is_superuser: true
+    # Automation Controller project object starts below
+    controller_projects:
+      - name: Windows project
+        scm_type: git
+        scm_url: "https://github.com/hgonzalerh/ansible-win-workshop-solution.git"
+        scm_clean: false
+        description: "Windows Project"
+        organization: Default
+        wait: true
+        update_project: true
+
+  tasks:
+    - name: Configure users through the user role in controller_configuration
+      ansible.builtin.include_role:
+        name: redhat_cop.controller_configuration.users
+      when: controller_user_accounts is defined
+
+    - name: Configure projects through the projects role in controller_configuration
+      ansible.builtin.include_role:
+        name: redhat_cop.controller_configuration.projects
+      when: controller_projects is defined
