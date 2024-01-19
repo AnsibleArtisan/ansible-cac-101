@@ -1,2 +1,13 @@
-- name: run-ansible-lint
-  uses: ansible/ansible-lint@v6.22.2
+# .github/workflows/ansible-lint.yml
+name: ansible-lint
+on:
+  pull_request:
+    branches: ["main", "stable", "release/v*"]
+jobs:
+  build:
+    name: Ansible Lint # Naming the build is important to use it as a status check
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Run ansible-lint
+        uses: ansible/ansible-lint@v6.22.2 # or version tag instead of 'main'
