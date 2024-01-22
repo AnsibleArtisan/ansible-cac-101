@@ -1,4 +1,5 @@
 ---
+# Lint is always run
 - name: First playbook for Configuration as Code
   hosts: localhost
   connection: local
